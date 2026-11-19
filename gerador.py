@@ -16,7 +16,7 @@ def gerar(tamanho, letras, numeros, especiais):
 
     while not ok:
         senha = ''
-        for a in range(tamanho):
+        for _ in range(tamanho):
                 senha += random.choice(caracteres)
         if letras == 1:
             okl = any(b in senha for b in alfa)
@@ -35,48 +35,26 @@ def gerar(tamanho, letras, numeros, especiais):
     return senha
 
 
+def selectnum(txt, minimo=0, maximo=1):
+    while True:
+        try:
+            resp = int(input(txt))
+            while not minimo <= resp <= maximo:
+                print('Opção inválida, tente novamente!')
+                resp = int(input(txt))
+            break
+        except ValueError:
+                print('Opção inválida, tente novamente!')
+    return resp
+
+
 print('======================')
 print('Gerador de Senhas'.center(22))
 print('======================')
-while True:
-    try:
-        opcl = int(input('Incluir letras? [0 = não / 1 = sim] '))
-        while not 0 <= opcl <= 1:
-            print('Opção inválida, tente novamente!')
-            opcl = int(input('Incluir letras? [0 = não / 1 = sim] '))
-        break
-    except ValueError:
-        print('Opção inválida, tente novamente!')
-
-while True:
-    try:
-        opcn = int(input('Incluir números? [0 = não / 1 = sim] '))
-        while not 0 <= opcn <= 1:
-            print('Opção inválida, tente novamente!')
-            opcn = int(input('Incluir números? [0 = não / 1 = sim] '))
-        break
-    except ValueError:
-        print('Opção inválida, tente novamente!')
-
-while True:
-    try:
-        opce = int(input('Incluir caractéres especiais? [0 = não / 1 = sim] '))
-        while not 0 <= opce <= 1:
-            print('Opção inválida, tente novamente!')
-            opce = int(input('Incluir caractéres especiais? [0 = não / 1 = sim] '))
-        break
-    except ValueError:
-        print('Opção inválida, tente novamente!')
-
-while True:
-    try:
-        tam = int(input('Tamanho da senha: [entre 6 e 50] '))
-        while not 6 <= tam <= 50:
-            print('Tamanho inválido, tente novamente!')
-            tam = int(input('Tamanho da senha: [entre 6 e 50] '))
-        break
-    except ValueError:
-        print('Valor inválido, tente novamente!')
+tam = selectnum('Tamanho da senha: [entre 6 e 50] ', 6, 50)
+opcl = selectnum('Incluir letras? [0 = não / 1 = sim] ')
+opcn = selectnum('Incluir números? [0 = não / 1 = sim] ')
+opce = selectnum('Incluir caractéres especiais? [0 = não / 1 = sim] ')
 
 while True:
     if opcl == 0 and opcn == 0 and opce == 0:
@@ -84,99 +62,32 @@ while True:
     else:
         print(f'A senha gerada foi: {gerar(tam, opcl, opcn, opce)}')
 
-    while True:
-        try:
-            rep = int(input('Quer gerar outra senha? [0 = não / 1 = sim] '))
-            while not 0 <= rep <= 1:
-                print('Opção inválida, tente novamente!')
-                rep = int(input('Quer gerar outra senha? [0 = não / 1 = sim] '))
-            break
-        except ValueError:
-            print('Opção inválida, tente novamente!')
+    rep = selectnum('Quer gerar outra senha? [0 = não / 1 = sim] ')
     if rep == 0:
         break
 
-    while True:
-        try:
-            m = int(input('Quer mudar alguma preferência? [0 = não / 1 = sim] '))
-            while not 0 <= m <= 1:
-                print('Opção inválida, tente novamente!')
-                m = int(input('Quer mudar alguma preferência? [0 = não / 1 = sim] '))
-            break
-        except ValueError:
-            print('Opção inválida, tente novamente!')
+    m = selectnum('Quer mudar alguma preferência? [0 = não / 1 = sim] ')
     if m == 1:
         while True:
-            while True:
-                try:
-                    opcm = int(input('''Qual preferência quer mudar?
+            opcm = selectnum('''Qual preferência quer mudar?
 [ 1 ] Tamanho
 [ 2 ] Incluir Letras
 [ 3 ] Incluir Números
 [ 4 ] Incluir Caractéres especiais
 [ 5 ] Cancelar Mudança
-Sua opção: '''))
-                    while not 1 <= opcm <= 5:
-                        opcm = int(input('Opção inválida, tente novamente: '))
-                    break
-                except ValueError:
-                    print('Opção inválida, tente novamente!')
-
+Sua opção: ''', 1, 5)
             if opcm == 1:
-                while True:
-                    try:
-                        tam = int(input('Tamanho da senha: [entre 6 e 50] '))
-                        while not 6 <= tam <= 50:
-                            print('Tamanho inválido, tente novamente!')
-                            tam = int(input('Tamanho da senha: [entre 6 e 50] '))
-                        break
-                    except ValueError:
-                        print('Valor inválido, tente novamente!')
-
+                tam = selectnum('Tamanho da senha: [entre 6 e 50] ', 6, 50)
             elif opcm == 2:
-                while True:
-                    try:
-                        opcl = int(input('Incluir letras? [0 = não / 1 = sim] '))
-                        while not 0 <= opcl <= 1:
-                            print('Opção inválida, tente novamente!')
-                            opcl = int(input('Incluir letras? [0 = não / 1 = sim] '))
-                        break
-                    except ValueError:
-                        print('Opção inválida, tente novamente!')
-
+                opcl = selectnum('Incluir letras? [0 = não / 1 = sim] ')
             elif opcm == 3:
-                while True:
-                    try:
-                        opcn = int(input('Incluir números? [0 = não / 1 = sim] '))
-                        while not 0 <= opcn <= 1:
-                            print('Opção inválida, tente novamente!')
-                            opcn = int(input('Incluir números? [0 = não / 1 = sim] '))
-                        break
-                    except ValueError:
-                        print('Opção inválida, tente novamente!')
-
+                opcn = selectnum('Incluir números? [0 = não / 1 = sim] ')
             elif opcm == 4:
-                while True:
-                        try:
-                            opce = int(input('Incluir caractéres especiais? [0 = não / 1 = sim] '))
-                            while not 0 <= opce <= 1:
-                                print('Opção inválida, tente novamente!')
-                                opce = int(input('Incluir caractéres especiais? [0 = não / 1 = sim] '))
-                            break
-                        except ValueError:
-                            print('Opção inválida, tente novamente!')
-
+                opce = selectnum('Incluir caractéres especiais? [0 = não / 1 = sim] ')
             elif opcm == 5:
                 break
-            while True:
-                try:
-                    c = int(input('Quer alterar mais alguma preferência? [0 = não / 1 = sim] '))
-                    while not 0 <= c <= 1:
-                        print('Opção inválida, tente novamente!')
-                        c = int(input('Quer alterar mais alguma preferência? [0 = não / 1 = sim] '))
-                    break
-                except ValueError:
-                    print('Valor inválido, tente novamente!')
+
+            c = selectnum('Quer alterar mais alguma preferência? [0 = não / 1 = sim] ')
             if c == 0:
                 break
 

@@ -1,14 +1,17 @@
 import random
 
 
-def gerar(tamanho, letras, numeros, especiais):
-    alfa = 'abcdefghijklmnopqrstuvwxyz'
+def gerar(tamanho, letrasmi, letrasma, numeros, especiais):
+    alfami = 'abcdefghijklmnopqrstuvwxyz'
+    alfama = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     num = '1234567890'
     especial = '@#$%&*'
     caracteres = ''
     ok = False
-    if letras == 1:
-        caracteres += alfa
+    if letrasmi == 1:
+        caracteres += alfami
+    if letrasma == 1:
+        caracteres += alfama
     if numeros == 1:
         caracteres += num
     if especiais == 1:
@@ -18,10 +21,14 @@ def gerar(tamanho, letras, numeros, especiais):
         senha = ''
         for _ in range(tamanho):
                 senha += random.choice(caracteres)
-        if letras == 1:
-            okl = any(b in senha for b in alfa)
+        if letrasmi == 1:
+            okli = any(b in senha for b in alfami)
         else:
-            okl = True
+            okli = True
+        if letrasma == 1:
+            okla = any(b in senha for b in alfama)
+        else:
+            okla = True
         if numeros == 1:
             okn = any(b in senha for b in num)
         else:
@@ -30,7 +37,7 @@ def gerar(tamanho, letras, numeros, especiais):
             oke = any(b in senha for b in especial)
         else:
             oke = True
-        ok = okl and okn and oke
+        ok = okli and okla and okn and oke
         
     return senha
 
@@ -52,15 +59,16 @@ print('======================')
 print('Gerador de Senhas'.center(22))
 print('======================')
 tam = selectnum('Tamanho da senha: [entre 6 e 50] ', 6, 50)
-opcl = selectnum('Incluir letras? [0 = não / 1 = sim] ')
+opcli = selectnum('Incluir letras minúsculas? [0 = não / 1 = sim] ')
+opcla = selectnum('Incluir letras maiúsculas? [0 = não / 1 = sim] ')
 opcn = selectnum('Incluir números? [0 = não / 1 = sim] ')
-opce = selectnum('Incluir caractéres especiais? [0 = não / 1 = sim] ')
+opce = selectnum('Incluir caracteres especiais? [0 = não / 1 = sim] ')
 
 while True:
-    if opcl == 0 and opcn == 0 and opce == 0:
+    if opcli == 0 and opcla == 0 and opcn == 0 and opce == 0:
         print('Não é possível gerar essa senha')
     else:
-        print(f'A senha gerada foi: {gerar(tam, opcl, opcn, opce)}')
+        print(f'A senha gerada foi: {gerar(tam, opcli, opcla, opcn, opce)}')
 
     rep = selectnum('Quer gerar outra senha? [0 = não / 1 = sim] ')
     if rep == 0:
@@ -71,20 +79,23 @@ while True:
         while True:
             opcm = selectnum('''Qual preferência quer mudar?
 [ 1 ] Tamanho
-[ 2 ] Incluir Letras
-[ 3 ] Incluir Números
-[ 4 ] Incluir Caractéres especiais
-[ 5 ] Cancelar Mudança
-Sua opção: ''', 1, 5)
+[ 2 ] Incluir Letras Minúsculas
+[ 3 ] Incluir Letras Maiúsculas
+[ 4 ] Incluir Números
+[ 5 ] Incluir Caracteres especiais
+[ 6 ] Cancelar Mudança
+Sua opção: ''', 1, 6)
             if opcm == 1:
                 tam = selectnum('Tamanho da senha: [entre 6 e 50] ', 6, 50)
             elif opcm == 2:
-                opcl = selectnum('Incluir letras? [0 = não / 1 = sim] ')
+                opcli = selectnum('Incluir letras minúsculas? [0 = não / 1 = sim] ')
             elif opcm == 3:
-                opcn = selectnum('Incluir números? [0 = não / 1 = sim] ')
+                opcla = selectnum('Incluir letras maiúsculas? [0 = não / 1 = sim] ')
             elif opcm == 4:
-                opce = selectnum('Incluir caractéres especiais? [0 = não / 1 = sim] ')
+                opcn = selectnum('Incluir números? [0 = não / 1 = sim] ')
             elif opcm == 5:
+                opce = selectnum('Incluir caracteres especiais? [0 = não / 1 = sim] ')
+            elif opcm == 6:
                 break
 
             c = selectnum('Quer alterar mais alguma preferência? [0 = não / 1 = sim] ')

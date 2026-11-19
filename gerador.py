@@ -1,11 +1,12 @@
 import random
 
+
 def gerar(tamanho, letras, numeros, especiais):
     alfa = 'abcdefghijklmnopqrstuvwxyz'
     num = '1234567890'
     especial = '@#$%&*'
     caracteres = ''
-    senha = ''
+    ok = False
     if letras == 1:
         caracteres += alfa
     if numeros == 1:
@@ -13,9 +14,26 @@ def gerar(tamanho, letras, numeros, especiais):
     if especiais == 1:
         caracteres += especial
 
-    for i in range(tamanho):
-        senha += random.choice(caracteres)
+    while not ok:
+        senha = ''
+        for a in range(tamanho):
+                senha += random.choice(caracteres)
+        if letras == 1:
+            okl = any(b in senha for b in alfa)
+        else:
+            okl = True
+        if numeros == 1:
+            okn = any(b in senha for b in num)
+        else:
+            okn = True
+        if especiais == 1:
+            oke = any(b in senha for b in especial)
+        else:
+            oke = True
+        ok = okl and okn and oke
+        
     return senha
+
 
 print('======================')
 print('Gerador de Senhas'.center(22))
